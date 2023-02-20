@@ -1,0 +1,84 @@
+main
+association Prog2pedia
+---
+---
+---
+
+Prog2pedia
+composes Pagina
+composes Historico
+composes Colaborador
+---
+- paginas: HashMap<titulo, Pagina>
+- colaboradores: HashMap<email, Colaborador>
+- historicoDeEdicoesDePaginas: Arraylist<Historico>
+---
++ Prog2pedia()
++ cadastrarPagina(titulo: str, colaborador: str): void
++ editarPagina(titulo: str, colaborador: str, conteudo: str): void
++ lerPagina(titulo: str): str
++ lerPaginaAleatoria(): str
+- guardaEdicao(email: str, titulo: str, conteudo:str): void
++ cadastrarColaborador(nome: str, email: str): void
++ listarColaboradores(): str
++ adicionarColaboradorEspecial(titulo: str, emailColaborador: str): void
++ listarHistoricoEdicoesPaginas(): str
++ listarPaginasPorTema(tema: str): str
++ adicionarTemasPaginas(titulo: str, tema: str): void
+---
+
+Pagina
+association Colaborador
+---
+
+- titulo: str
+- conteudo: str
+- temas: HashSet<str>
+- colaboradorCriador: Colaborador
+- colaboradoresEspeciais: HashSet<Colaborador> // A quantidade de vezes que uma pessoa é cadastrada como colaborador  especial em uma página não é relevante.
+---
++ Pagina(titulo: str, colaborador: Colaborador)
++ editarPagina(titulo:str, colaborador: Colaborador, conteudo: str): void
++ adicionaColaboradorEspecial(colaborador: Colaborador): void
+- verificaPermissaoEdicao(): boolean
++ existeTema(tema: str): boolean
++ getTema(): HashSet<str>
++ getTitulo(): str
++ getContéudo(): str
++ adicionaTema(tema: str): void
++ equals(o: Object): boolean
++ hashCode(): int
++ toString(): str // Representação da página: Titulo, conteúdo e tema.
+---
+
+Colaborador
+---
+- nome: str
+- email: str
+- paginasEditadas: int
+---
++ Colaborador(nome: str, email: str)
++ getEmail(): str
++ getPaginasEditadas(): int
++ contaPaginasEditadas(): int
++ equals(o: Object): boolean
++ hashCode(): int
++ toString(): str
+---
+
+Historico
+association Pagina
+association Colaborador
+---
+- dataAlteracao: str
+- colaborador: Coloborador
+- titulo: str
+- paginaAntesDeAlteracao: Pagina
+---
++ Historico(dataAlteracao: str, colaborador: Colaborador, titulo: str, pagina: Pagina)
++ getDataAlteracao(): str
++ getPagina(): Pagina
++ equals(o: Object): boolean
++ hashCode(): int
++ toString(): str
+---

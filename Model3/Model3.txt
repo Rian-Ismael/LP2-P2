@@ -1,0 +1,136 @@
+main
+association FaBor
+---
+---
+---
+
+FaBor
+composes LinhaProducao
+composes Bordado
+---
+- linhaProducao: LinhaProducao
+- bordados: HashMap<Integer, Bordado>
+- robos: HashMap<String, Robo<Interface>>
+---
++ FaBor()
++ cadastraRoboLimpador(nomeRobo: str): boolean
++ cadastraRoboRetangulo(x1: int, y1: int, x2: int, y2: int, nomeRobo: str): boolean
++ cadastraRoboPonto(x: int, y: int, nomeRobo: str): boolean
++ cadastraRoboBorda(nomeRobo: str): boolean
++ processaBordado(int: IdBordado): double
++ adicionaRoboLinhaProducao(nomeRobo: str, posicao: int): void
++ cadastraBordado(IdBordado: int, altura: int, largura: int): int
++ exibeBordado(IdBordado: int): str
++ getPeso(): int //  pegarÃ¡ o peso dos robÃ´s na linha de produÃ§Ã£o.
++ apagaRobo(IdRobo: String): void
++ getEstadoBordado(IdBordado: int, IdPassagem: int): String
++ getContagemProcessamentoBordado(IdBordado: int): int
+---
+
+Bordado
+---
+- historico: ArrayList<String[][]>
+- representacao: String[][]
+---
++ Bordado(altura: int, largura: int)
++ removePonto(x: int, y: int): void
++ adicionaPonto(x: int, y: int): void
++ limpaBordado(): void
+- AtualizaHistorico(): void
++ getHistorico(IdHistorico: int): str[][]
++ equals(o: Object): boolean
++ getNumProcessamentos(): int
++ hashCode(): int
++ toString(): str
+---
+
+LinhaProducao
+---
+- robos: Array<Robo<Interface>> // 5 robos
+---
++ LinhaProducao()
++ adicionaProducao(robo: Robo, posicaoProducao: int): void
++ getPeso(): int
++ processaBordado(bordado: Bordado): int
+---
+
+Robo<Interface>
+composes FaBor
+composes LinhaProducao
+---
+---
++ getCusto(): double
++ getPeso(): int
++ getNome(): str
++ Operacao(bordado: Bordado): double
+---
+
+RoboLimpador
+implements Robo<Interface>
+association Bordado
+---
+- nomeRobo: str
+- peso: int
+- custo: double
+---
++ RoboLimpador(nomeRobo: str)
++ Operacao(bordado: Bordado): double
++ getCusto(): double
++ getPeso(): int
++ equals(o: Object): boolean
++ hashCode(): int
+---
+RoboPonto
+implements Robo<Interface>
+association Bordado
+---
+- nomeRobo: str
+- peso: int
+- custo: double
+- x: int
+- y: int
+---
++ RoboPonto(nomeRobo: str, x: int, y: int)
++ Operacao(bordado: Bordado): double
++ getNome(): str
++ getCusto(): double
++ getPeso(): int
++ equals(o: Object): boolean
++ hashCode(): int
+---
+
+RoboRetangulo
+implements Robo<Interface>
+association Bordado
+---
+- peso: int
+- pontoInicio: int[]
+- nomeRobo: str
+- custo: double
+- pontoFim: int[]
+---
++ RoboRetangulo(inicio: int[], nomeRobo: str, fim: int[])
++ Operacao(bordado: Bordado): double
++ getPeso(): int
++ getCusto(): double
++ getNome(): str
++ equals(o: Object): boolean
++ hashCode(): int
+---
+
+RoboBorda
+implements Robo<Interface>
+association Bordado
+---
+- nomeRobo: str
+- custo: double
+- peso: int
+---
++ RoboBorda(nomeRobo: str)
++ Operacao(bordado: Bordado): double
++ getCusto(): double
++ getNome(): str
++ getPeso(): int
++ equals(o: Object): boolean
++ hashCode(): int
+---
