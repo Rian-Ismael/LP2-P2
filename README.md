@@ -1,2 +1,2 @@
 # LP2-P2
-Laboratórios de LP2 e Modelos de P2 realizados durante o período 2022.1.
+LP2 Laboratories and P2 Models carried out during the period 2022.1.
